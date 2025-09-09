@@ -126,3 +126,43 @@ def data() -> Union[pd.DataFrame, None]:
         logger.error(f"Unexpected error loading data: {e}")
         print(f"Error loading data: {e}")
         return None
+
+import osmnx as ox
+import matplotlib.pyplot as plt
+
+tags = {
+    "amenity": True,
+    "buildings": True,
+    "historic": True,
+    "leisure": True,
+    "shop": True,
+    "tourism": True,
+    "religion": True,
+    "memorial": True
+}
+def plot_city_map(place_name, latitude, longitude, box_size=2, pois_tags=None):
+  box_width = 0.1 # About 11 km
+  box_height = 0.1
+  north = latitude + box_height/2
+  south = latitude - box_height/2
+  west = longitude - box_width/2
+  east = longitude + box_width/2
+  box = (west, south, east, north)
+
+  graph = ox.graph_from_bbox(bbox)
+  area = ox.geocode_to_gdf(place_name)
+  nodes, edges = ox.graph_to_gdfs(graph)
+  buildings = ox.features_from_bbox(bbox, tags={"building": True})
+
+  fig, ax = plt.subplots(figsize=(6,6))
+  area.plot(ax=ax, color="tan", alpha=0.5)
+  buildings.plot(ax=ax, facecolor="gray", edgecolor="gray")
+  edges.plot(ax=ax, linewidth=1, edgecolor="black", alpha=0.3)
+  nodes.plot(ax=ax, color="black", markersize=1, alpha=0.3)
+  pois.plot(ax=ax, color="green", markersize=5, alpha=1)
+  ax.set_xlim(west, east)
+  ax.set_ylim(south, north)
+  ax.set_title(place_name, fontsize=14)
+  plt.show()
+
+
