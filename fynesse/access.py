@@ -153,7 +153,7 @@ def plot_city_map(place_name, latitude, longitude, box_size=2, pois_tags=None):
   area = ox.geocode_to_gdf(place_name)
   nodes, edges = ox.graph_to_gdfs(graph)
   buildings = ox.features_from_bbox(bbox, tags={"building": True})
-  pois= ox.feeatures_from_bbox(bbox,pois_tags)
+  pois= ox.features_from_bbox(bbox,pois_tags)
 
   fig, ax = plt.subplots(figsize=(6,6))
   area.plot(ax=ax, color="tan", alpha=0.5)
