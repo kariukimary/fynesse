@@ -147,7 +147,7 @@ def plot_city_map(place_name, latitude, longitude, box_size=2, pois_tags=None):
   south = latitude - box_height/2
   west = longitude - box_width/2
   east = longitude + box_width/2
-  box = (west, south, east, north)
+  bbox = (west, south, east, north)
 
   graph = ox.graph_from_bbox(bbox)
   area = ox.geocode_to_gdf(place_name)
