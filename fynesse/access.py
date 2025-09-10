@@ -127,7 +127,7 @@ def data() -> Union[pd.DataFrame, None]:
         print(f"Error loading data: {e}")
         return None
 
-import osmnx as ox
+import osmnx as ox 
 import matplotlib.pyplot as plt
 
 tags = {
